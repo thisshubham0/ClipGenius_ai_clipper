@@ -1,0 +1,6 @@
+{
+  "name": "ClipGenius AI",
+  "description": "Turn long-form videos into ranked, captioned, platform-ready short clips with transparent AI scoring and an in-browser studio editor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
