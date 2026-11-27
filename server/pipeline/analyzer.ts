@@ -430,7 +430,7 @@ export async function runProjectAnalysisPipeline(params: {
             try {
               const fallbackRes = await generateWithFallback(
                 aiClient,
-                'gemini-3.8-flash',
+                'gemini-4-hydrogen',
                 ['gemini-3.1-flash-lite'],
                 {
                   contents: {
@@ -532,7 +532,7 @@ export async function runProjectAnalysisPipeline(params: {
 
               const diarizationRes = await generateWithFallback(
                 aiClient,
-                'gemini-3.8-flash',
+                'gemini-4-hydrogen',
                 ['gemini-3.1-flash-lite'],
                 {
                   contents: {
@@ -739,7 +739,7 @@ export async function runProjectAnalysisPipeline(params: {
         });
       }
 
-      // Stage 5: Topic & Moment Segmentation via gemini-3.8-flash
+      // Stage 5: Topic & Moment Segmentation via gemini-4-hydrogen
       if (!isStageDone('topic_segmentation') || !state.cache.topics) {
         setStageStatus(project, 'topic_segmentation', {
           status: 'running',
@@ -759,7 +759,7 @@ export async function runProjectAnalysisPipeline(params: {
         const topicRes = await generateWithFallback(
           aiClient,
           'gemini-3.1-flash-lite',
-          ['gemini-3.8-flash'],
+          ['gemini-4-hydrogen'],
           {
             contents: `Segment this ${project.video.durationSec.toFixed(1)}s video timeline into distinct topic/emotional chapters covering the ENTIRE video from start to finish.\nScene cuts at seconds: ${(state.cache.sceneCuts ?? []).join(', ') || 'none'}\n\nAudio & Speech Timeline:\n${segmentsSummary}`,
             config: {
@@ -802,7 +802,7 @@ export async function runProjectAnalysisPipeline(params: {
         });
       }
 
-      // Stage 6: Best-Moment Highlight Detection, Scoring & Recommendations via gemini-3.8-flash
+      // Stage 6: Best-Moment Highlight Detection, Scoring & Recommendations via gemini-4-hydrogen
       if (!isStageDone('highlight_detection') || !state.cache.candidates) {
         const dur = Math.max(5, project.video.durationSec);
         const targetClipCount =
@@ -829,7 +829,7 @@ export async function runProjectAnalysisPipeline(params: {
 
         const highlightRes = await generateWithFallback(
           aiClient,
-          'gemini-3.8-flash',
+          'gemini-4-hydrogen',
           ['gemini-3.1-flash-lite'],
           {
             contents:
@@ -1152,7 +1152,7 @@ async function detectWindowSpeechSegments(opts: {
     // Pass 2: Timestamped voice & sound alignment strictly relative to 00:00.00..windowClockEnd
     const diarizedRes = await generateWithFallback(
       aiClient,
-      'gemini-3.8-flash',
+      'gemini-4-hydrogen',
       ['gemini-3.1-flash-lite'],
       {
         contents: [
@@ -1242,7 +1242,7 @@ async function detectWindowSpeechSegments(opts: {
       try {
         const rescueRes = await withTimeout(
           aiClient.models.generateContent({
-            model: 'gemini-3.8-flash',
+            model: 'gemini-4-hydrogen',
             contents: [
               audioPart,
               {

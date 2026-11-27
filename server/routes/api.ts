@@ -1685,7 +1685,7 @@ export function createApiRouter(): Router {
       cues: baseCues,
     });
 
-    const modelsToTry = ['gemini-3.8-flash', 'gemini-3.1-flash-lite'];
+    const modelsToTry = ['gemini-4-hydrogen', 'gemini-3.1-flash-lite'];
     let lastError: unknown;
 
     for (const model of modelsToTry) {
